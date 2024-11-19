@@ -2,10 +2,26 @@ import React, { useState } from "react";
 import { intialValue, validate } from "./productForm";
 import { Input } from "../../components/form/Input";
 import { TitleBar } from "../../components/TitleBar";
+import { Select } from "../../components/form/Select";
 
 const EditForm = () => {
   const [form, setForm] = useState(intialValue);
 
+  const categories = [
+    {
+      value: "1",
+      label: "Smartphones",
+    },
+    {
+      value: "2",
+      label: "PCs",
+    },
+    {
+      value: "3",
+      label: "TVs",
+    },
+  ];
+  
   const errors = validate(form);
 
   const handleChange = (e) => {
@@ -48,6 +64,17 @@ const EditForm = () => {
         name="quantity"
         type="number"
         label="Stock"
+      />
+      {/* Category */}
+      <Select
+        value={form.categorieId}
+        onChange={handleChange}
+        error={errors?.categorieId}
+        id="categorieId"
+        name="categorieId"
+        label="Category"
+        emptyOption="Choose Category"
+        options={categories}
       />
       <input
         type="submit"
