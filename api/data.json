@@ -1,0 +1,47 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Smartphones"
+    },
+    {
+      "id": "2",
+      "name": "PCs"
+    },
+    {
+      "id": "3",
+      "name": "TVs"
+    },
+    {
+      "id": "4",
+      "name": "Tablettes"
+    },
+    {
+      "id": "d8cf",
+      "name": "Categorie Test API"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "title": "Produit 1",
+      "price": 1000,
+      "quantity": 10,
+      "categorieId": "1"
+    },
+    {
+      "id": "2",
+      "title": "Produit 2",
+      "price": 1000,
+      "quantity": 2,
+      "categorieId": "2"
+    },
+    {
+      "id": "3",
+      "title": "Produit 3",
+      "price": 1000,
+      "quantity": 0,
+      "categorieId": "1"
+    }
+  ]
+}
