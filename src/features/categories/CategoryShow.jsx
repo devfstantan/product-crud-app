@@ -26,6 +26,7 @@ export const CategoryShow = () => {
           </>
         }
       />
+      <h4>Products</h4>
       <CategoryProducts category={category} />
     </>
   );
