@@ -1,48 +1,29 @@
-import React, { useState } from "react";
-import { Input } from "../../components/form/Input";
-import { intialValue, validate } from "./categoryForm";
+import React, { useEffect } from "react";
 import { TitleBar } from "../../components/TitleBar";
-
-const EditForm = () => {
-  const [form, setForm] = useState(intialValue);
-
-  const errors = validate(form);
-
-  const handleChange = (e) => {
-    let { name, value } = e.target;
-
-    setForm({ ...form, [name]: value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
-  return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        value={form.name}
-        onChange={handleChange}
-        error={errors?.name}
-        id="name"
-        name="name"
-        type="text"
-        label="Name"
-      />
-      <input
-        type="submit"
-        value="Update"
-        className="btn btn-primary"
-        disabled={Object.keys(errors).length !== 0}
-      />
-    </form>
-  );
-};
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { getCategory, updateCategory } from "./categoriesSlice";
+import { EditForm } from "./parts/EditForm";
 
 export const CategoryEdit = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const {id} = useParams();
+
+  const {item:category} = useSelector((state) => state.categories)
+
+  useEffect(() => { dispatch(getCategory(id)) },[])
+
+  const onSubmit=(form) => {
+    dispatch(updateCategory({id:category.id, data:form}))
+    navigate('/categories');
+  }
+
   return (
     <>
       <TitleBar title="Edit Category" />
-      <EditForm />
+      {category && <EditForm category={category} onSubmit={onSubmit} /> }
     </>
   );
 };

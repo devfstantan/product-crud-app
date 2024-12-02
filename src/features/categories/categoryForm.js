@@ -1,10 +1,7 @@
 import { maxLength, required } from "../../utils/validators";
 
 
-// form initial State
-export const intialValue = {
-  name: "",
-};
+
 
 // Validation rules
 export const rules = {
@@ -14,6 +11,9 @@ export const rules = {
 // Form validation function
 export function validate(form) {
   let errors = {};
+  if(!rules["name"](form?.name)){
+    errors.name = true;
+  }
 
   return errors;
 }

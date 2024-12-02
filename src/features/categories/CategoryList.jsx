@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ButtonLink } from "../../components/ButtonLink";
 import { DeleteBtn } from "../../components/DeleteBtn";
 import { TitleBar } from "../../components/TitleBar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "./categoriesSlice";
+import { Loader } from "../../components/Loader";
+import { Error } from "../../components/Error";
 
+/**
+ * Table Row Component
+ * @param {*} category: object of the category to display  
+ */
 const CategoryRow = ({ category }) => {
   return (
     <tr>
-      <td>{category.id}</td>
       <td>
         <Link to={`/categories/${category.id}`}>{category.name}</Link>
       </td>
@@ -26,24 +33,18 @@ const CategoryRow = ({ category }) => {
 };
 
 export const CategoryList = () => {
-  const categories = [
-    {
-      id: "1",
-      name: "Smartphones",
-    },
-    {
-      id: "2",
-      name: "PCs",
-    },
-    {
-      id: "3",
-      name: "TVs",
-    },
-    {
-      id: "4",
-      name: "Tablettes",
-    },
-  ];
+  const disptach = useDispatch();
+  const {
+    items: categories,
+    loading,
+    error,
+  } = useSelector((state) => state.categories);
+
+  // Fetch Categories from the API.
+  useEffect(() => {
+    disptach(fetchCategories());
+  }, []);
+  
   return (
     <>
       <TitleBar
@@ -60,21 +61,23 @@ export const CategoryList = () => {
           </>
         }
       />
-
-      <table className="table table-hover">
-        <thead >
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((cat) => (
-            <CategoryRow category={cat} key={cat.id} />
-          ))}
-        </tbody>
-      </table>
+      <Loader loading={loading} text="Chargement des catégories..." />
+      <Error error={error} />
+      {!loading && !error && (
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.map((cat) => (
+              <CategoryRow category={cat} key={cat.id} />
+            ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 };
