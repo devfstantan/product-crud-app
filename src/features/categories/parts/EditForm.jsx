@@ -1,13 +1,30 @@
 
 import { useState } from "react";
-import { intialValue, validate } from "../categoryForm";
 import { Input } from "../../../components/form/Input";
+import { maxLength, required, validateField, validateForm } from "../../../utils/validators";
+// Form's initial Value
+const initialValue = {
+  name: "",
+};
 
-export const EditForm = ({category=intialValue, onSubmit}) => {
-    const [form, setForm] = useState(category);
-  
-    // Validation errors 
-    const errors = validate(form);
+// Form's validation Rules
+const rules = {
+  // Name
+  name: [
+    {
+      rule : (v) => required(v),
+      message: "Le nom est obligatoire"
+    },{
+      rule: (v) => maxLength(v, 30),
+      message: "Le nom ne doit pas dépasser 30 caractères"
+    }
+  ]
+}
+
+
+export const EditForm = ({defaultValue=initialValue, onSubmit}) => {
+    const [form, setForm] = useState(defaultValue);
+    const isFormValid = validateForm(form, rules); // validate form.
   
     // Form input change event
     const handleChange = (e) => {
@@ -25,8 +42,8 @@ export const EditForm = ({category=intialValue, onSubmit}) => {
       <form onSubmit={handleSubmit}>
         <Input
           value={form.name}
+          validate={validateField(form.name, rules.name)}
           onChange={handleChange}
-          error={errors?.name}
           id="name"
           name="name"
           type="text"
@@ -34,9 +51,9 @@ export const EditForm = ({category=intialValue, onSubmit}) => {
         />
         <input
           type="submit"
-          value="Update"
+          value="Edit"
           className="btn btn-primary"
-          disabled={Object.keys(errors).length !== 0}
+          disabled={!isFormValid}
         />
       </form>
     );

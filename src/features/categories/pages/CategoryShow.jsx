@@ -1,8 +1,8 @@
 import React from "react";
-import { TitleBar } from "../../components/TitleBar";
-import { ButtonLink } from "../../components/ButtonLink";
-import { DeleteBtn } from "../../components/DeleteBtn";
-import { CategoryProducts } from "./parts/CategoryProducts";
+import { TitleBar } from "../../../components/TitleBar";
+import { ButtonLink } from "../../../components/ButtonLink";
+import { DeleteBtn } from "../../../components/DeleteBtn";
+import { CategoryProducts } from "../parts/CategoryProducts";
 
 export const CategoryShow = () => {
   const category = {

@@ -2,14 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './layout/Layout';
-import { CategoryList } from './features/categories/CategoryList';
-import { CategoryCreate } from './features/categories/CategoryCreate';
-import { CategoryShow } from './features/categories/CategoryShow';
-import { CategoryEdit } from './features/categories/CategoryEdit';
-import { ProductList } from './features/products/ProductList';
-import { ProductCreate } from './features/products/ProductCreate';
-import { ProductShow } from './features/products/ProductShow';
-import { ProductEdit } from './features/products/ProductEdit';
+import { CategoryList } from './features/categories/pages/CategoryList';
+import { CategoryCreate } from './features/categories/pages/CategoryCreate';
+import { CategoryShow } from './features/categories/pages/CategoryShow';
+import { CategoryEdit } from './features/categories/pages/CategoryEdit';
+import { ProductList } from './features/products/pages/ProductList';
+import { ProductCreate } from './features/products/pages/ProductCreate';
+import { ProductShow } from './features/products/pages/ProductShow';
+import { ProductEdit } from './features/products/pages/ProductEdit';
 
 function App() {
   return (

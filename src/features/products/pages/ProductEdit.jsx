@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { intialValue, validate } from "./productForm";
-import { Input } from "../../components/form/Input";
-import { TitleBar } from "../../components/TitleBar";
-import { Select } from "../../components/form/Select";
+import { intialValue, validate } from "../productForm";
+import { Input } from "../../../components/form/Input";
+import { TitleBar } from "../../../components/TitleBar";
+import { Select } from "../../../components/form/Select";
 
-const CreateForm = () => {
+const EditForm = () => {
   const [form, setForm] = useState(intialValue);
+
   const categories = [
     {
       value: "1",
@@ -20,7 +21,7 @@ const CreateForm = () => {
       label: "TVs",
     },
   ];
-
+  
   const errors = validate(form);
 
   const handleChange = (e) => {
@@ -85,11 +86,12 @@ const CreateForm = () => {
   );
 };
 
-export const ProductCreate = () => {
+
+export const ProductEdit = () => {
   return (
     <>
-      <TitleBar title="New Product" />
-      <CreateForm />
+      <TitleBar title="Edit Product" />
+      <EditForm />
     </>
   );
 };

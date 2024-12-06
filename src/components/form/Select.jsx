@@ -7,13 +7,14 @@ import React from 'react'
 export const Select = ({
   label, 
   id, 
-  error=false, 
+  validate=true, 
   options=[], 
   emptyOption="Choisir",
   ...props
 }) => {
   
-  const classes = error ? "form-select border border-danger":"form-select";
+  const isError = validate instanceof Error;
+  const classes = isError ? "form-select is-invalid":"form-select";
 
   return (
     <div className="mb-3">
@@ -24,6 +25,9 @@ export const Select = ({
         <option value="">{emptyOption}</option>
         {options.map(opt => <option value={opt.value}>{opt.label}</option>)}
       </select>
+      {isError && (
+        <div  class="invalid-feedback">{validate.message}</div>
+      )}
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { TitleBar } from "../../components/TitleBar";
+import { TitleBar } from "../../../components/TitleBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCategory, updateCategory } from "./categoriesSlice";
-import { EditForm } from "./parts/EditForm";
+import { getCategory, updateCategory } from "../categoriesSlice";
+import { EditForm } from "../parts/EditForm";
 
 export const CategoryEdit = () => {
 
@@ -23,7 +23,7 @@ export const CategoryEdit = () => {
   return (
     <>
       <TitleBar title="Edit Category" />
-      {category && <EditForm category={category} onSubmit={onSubmit} /> }
+      {category && <EditForm defaultValue={category} onSubmit={onSubmit} /> }
     </>
   );
 };

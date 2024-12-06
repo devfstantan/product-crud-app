@@ -1,9 +1,9 @@
 import React from "react";
-import { Price } from "../../components/product/Price";
-import { TitleBar } from "../../components/TitleBar";
-import { ButtonLink } from "../../components/ButtonLink";
-import { DeleteBtn } from "../../components/DeleteBtn";
-import { Stock } from "../../components/product/Stock";
+import { Price } from "../../../components/product/Price";
+import { TitleBar } from "../../../components/TitleBar";
+import { ButtonLink } from "../../../components/ButtonLink";
+import { DeleteBtn } from "../../../components/DeleteBtn";
+import { Stock } from "../../../components/product/Stock";
 
 export const ProductShow = () => {
   const product = {

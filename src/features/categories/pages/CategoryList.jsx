@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ButtonLink } from "../../components/ButtonLink";
-import { DeleteBtn } from "../../components/DeleteBtn";
-import { TitleBar } from "../../components/TitleBar";
+import { ButtonLink } from "../../../components/ButtonLink";
+import { DeleteBtn } from "../../../components/DeleteBtn";
+import { TitleBar } from "../../../components/TitleBar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "./categoriesSlice";
-import { Loader } from "../../components/Loader";
-import { Error } from "../../components/Error";
+import { deleteCategory, fetchCategories } from "../categoriesSlice";
+import { Loader } from "../../../components/Loader";
+import { Error } from "../../../components/Error";
 
 /**
  * Table Row Component
  * @param {*} category: object of the category to display  
  */
 const CategoryRow = ({ category }) => {
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteCategory(category.id))
+  }
   return (
     <tr>
       <td>
@@ -26,7 +30,10 @@ const CategoryRow = ({ category }) => {
         >
           Edit
         </ButtonLink>
-        <DeleteBtn />
+        <DeleteBtn 
+          confirm={`Voulez-vous supprimer la catégorie ${category.name} ?`} 
+          onDelete={handleDelete}
+        />
       </td>
     </tr>
   );

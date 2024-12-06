@@ -33,7 +33,16 @@ export const updateCategory = createAsyncThunk(
     'categories/updateById', 
     async ({id, data}) => {
         const resp = await axiosClient.put(`categories/${id}`,data);
-        return data;
+        return resp.data;
+    }
+)
+
+// thunk that deletes a category
+export const deleteCategory = createAsyncThunk(
+    'categories/deleteById', 
+    async (id) => {
+        const resp = await axiosClient.delete(`categories/${id}`);
+        return resp.data;
     }
 )
 
@@ -84,9 +93,11 @@ const categoriesSlice = createSlice({
 
         }).addCase(getCategory.pending,(state, action) => {
                 state.loading = true
+                state.item = null;
 
         }).addCase(getCategory.rejected,(state, action) => {
                 state.loading = false;
+                state.item = null;
                 state.error = action.error.message;
         });
 
@@ -100,6 +111,20 @@ const categoriesSlice = createSlice({
                 state.loading = true
 
         }).addCase(updateCategory.rejected,(state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+        });
+
+        // 5- delete Category by id
+        builder.addCase(deleteCategory.fulfilled, (state, action) => {
+            state.loading = false;
+            state.error = null;
+            state.items = state.items.filter(e => e.id !== action.payload.id)
+
+        }).addCase(deleteCategory.pending,(state, action) => {
+                state.loading = true
+
+        }).addCase(deleteCategory.rejected,(state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
         });

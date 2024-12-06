@@ -1,10 +1,10 @@
 import React from "react";
-import { ButtonLink } from "../../components/ButtonLink";
-import { DeleteBtn } from "../../components/DeleteBtn";
+import { ButtonLink } from "../../../components/ButtonLink";
+import { DeleteBtn } from "../../../components/DeleteBtn";
 import { Link } from "react-router-dom";
-import { TitleBar } from "../../components/TitleBar";
-import { Price } from "../../components/product/Price";
-import { Stock } from "../../components/product/Stock";
+import { TitleBar } from "../../../components/TitleBar";
+import { Price } from "../../../components/product/Price";
+import { Stock } from "../../../components/product/Stock";
 
 const ProductRow = ({ product }) => {
   return (
