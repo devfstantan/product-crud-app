@@ -1,16 +1,57 @@
 
-
+/**
+ * checks if value is not empty.
+ * @param {*} value 
+ * @returns 
+ */
 export function required(value) {
-  return value?.length > 0;
+  return String(value)?.length > 0;
 }
+/**
+ * checks if value's length <= max
+ * @param {*} value 
+ * @param {*} max 
+ * @returns 
+ */
 export function maxLength(value, max = 100) {
   return value?.length <= max;
 }
+/**
+ * checks if value >= min
+ * @param {*} value 
+ * @param {*} min 
+ * @returns 
+ */
+export function min(value, min = 0) {
+  return between(value, min, Infinity)
+}
+/**
+ * checks if value <= max
+ * @param {*} value 
+ * @param {*} max 
+ * @returns 
+ */
+export function max(value, max = 0) {
+  return between(value, -Infinity, max)
+}
+/**
+ * checks if value is in [min, max]
+ * @param {*} value 
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
 export function between(value, min = 0, max = 100) {
   let v = Number(value);
   return !isNaN(v) && v >= min && v <= max;
 }
 
+/**
+ * checks if input is a valid cin
+ * @param {*} value 
+ * @param {*} partial 
+ * @returns 
+ */
 export function cin(value, partial = false) {
   if (partial) {
     return (

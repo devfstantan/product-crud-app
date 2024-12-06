@@ -19,19 +19,15 @@
     {
       "id": "3b3c",
       "name": "Tablettes"
-    },
-    {
-      "id": "7ae0",
-      "name": "CAT1"
     }
   ],
   "products": [
     {
       "id": "1",
-      "title": "Produit 1",
-      "price": 1000,
-      "quantity": 10,
-      "categorieId": "1"
+      "title": "Produit1 Edit",
+      "price": 20,
+      "quantity": 200,
+      "categorieId": "3b3c"
     },
     {
       "id": "2",
@@ -46,6 +42,27 @@
       "price": 1000,
       "quantity": 0,
       "categorieId": "1"
+    },
+    {
+      "id": "a265",
+      "title": "Produit1",
+      "price": 1000,
+      "quantity": 100,
+      "categorieId": "3b3c"
+    },
+    {
+      "id": "c1cb",
+      "title": "sds",
+      "price": 1000,
+      "quantity": 1000,
+      "categorieId": "3b3c"
+    },
+    {
+      "id": "a79e",
+      "title": "dada",
+      "price": 200,
+      "quantity": 100,
+      "categorieId": "3"
     }
   ]
 }

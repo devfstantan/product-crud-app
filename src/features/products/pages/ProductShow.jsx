@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Price } from "../../../components/product/Price";
 import { TitleBar } from "../../../components/TitleBar";
 import { ButtonLink } from "../../../components/ButtonLink";
 import { DeleteBtn } from "../../../components/DeleteBtn";
 import { Stock } from "../../../components/product/Stock";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteProduct, getProduct } from "../productsSlice";
+import { Loader } from "../../../components/Loader";
+import { Error } from "../../../components/Error";
 
-export const ProductShow = () => {
-  const product = {
-    id: "1",
-    title: "Produit 1",
-    price: 1000,
-    quantity: 10,
-    categorieId: "1",
-    categorie: {
-      id: "1",
-      name: "Smartphones",
-    },
-  };
+const ProductDetails = ({ product }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    dispatch(deleteProduct(product.id));
+    navigate('/');
+  }
   return (
     <>
       <TitleBar
@@ -30,11 +30,13 @@ export const ProductShow = () => {
             >
               Edit
             </ButtonLink>
-            <DeleteBtn />
+            <DeleteBtn 
+             confirm={`Voulez-vous supprimer le produit ${product.title} ?`} 
+             onDelete={handleDelete}
+            />
           </>
         }
       />
-
       <div className="d-flex gap-4">
         {/* Price Field */}
         <div className="mb-3">
@@ -47,10 +49,33 @@ export const ProductShow = () => {
         <div className="mb-3">
           <h4>Stock:</h4>
           <span className="display-6">
-            <Stock value={product.stock} />
+            <Stock value={product.quantity} />
           </span>
         </div>
       </div>
+    </>
+  );
+};
+
+export const ProductShow = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const {
+    item: product,
+    loading,
+    error,
+  } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProduct(id));
+  }, []);
+
+  return (
+    <>
+      <Loader loading={loading} text="Chargement du produit..." />
+      <Error error={error} />
+      {!loading && !error && product && <ProductDetails product={product} />}
     </>
   );
 };

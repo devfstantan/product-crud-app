@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TitleBar } from "../../../components/TitleBar";
 import { ButtonLink } from "../../../components/ButtonLink";
 import { DeleteBtn } from "../../../components/DeleteBtn";
-import { CategoryProducts } from "../parts/CategoryProducts";
+import { deleteCategory, getCategory } from "../categoriesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { Loader } from "../../../components/Loader";
+import { Error } from "../../../components/Error";
+import { CategoryProductTable } from "../parts/CategoryProductTable";
 
-export const CategoryShow = () => {
-  const category = {
-    id:1,
-    name: "Smartphones"
+
+
+const CategoryDetails = ({ category }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    dispatch(deleteCategory(category.id));
+    navigate('/categories');
   }
-  return (
-    <>
+  return ( 
+      <>
       <TitleBar
         title={`Category: ${category.name}`}
         actions={
@@ -22,12 +31,40 @@ export const CategoryShow = () => {
             >
               Edit
             </ButtonLink>
-            <DeleteBtn />
+            <DeleteBtn 
+             confirm={`Voulez-vous supprimer la catégorie ${category.name} ?`} 
+             onDelete={handleDelete}
+            />
           </>
         }
       />
       <h4>Products</h4>
-      <CategoryProducts category={category} />
+      <CategoryProductTable id={category.id} />
+    </>
+    
+  );
+};
+
+export const CategoryShow = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const {
+    item: category,
+    loading,
+    error,
+  } = useSelector((state) => state.categories);
+
+
+  useEffect(() => {
+    dispatch(getCategory(id));
+  }, []);
+
+  return (
+    <>
+      <Loader loading={loading} text="Chargement de la catégorie..." />
+      <Error error={error} />
+      {!loading && !error && category && <CategoryDetails category={category}  />}
     </>
   );
 };
